@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp
 
+//Jack is good at life don't judge
+
 public class MyFIRSTJavaOpMode extends LinearOpMode {
     private Gyroscope imu;
     private DcMotor motorTest;
