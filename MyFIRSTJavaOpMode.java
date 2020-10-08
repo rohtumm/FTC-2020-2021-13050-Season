@@ -1,11 +1,11 @@
+//Kayla and Vickie this is the code that you should dowload into your project under org.firstinspires.ftc.teamcode. Or you can make a file called MyFIRSTJavaOpMode and then copy and paste this in.
+
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp
-
-//Jack is good at life don't judge
 
 public class MyFIRSTJavaOpMode extends LinearOpMode {
     private Gyroscope imu;
