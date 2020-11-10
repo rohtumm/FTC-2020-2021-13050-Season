@@ -63,7 +63,7 @@ public class HardwarePushbot2
     public DcMotor  leftDownDrive = null;
     //end of new motors (we created)
     public DcMotor  launcherMotor = null; //for launcher
-    public DcMotor  intakeMotor - null; //for intake
+    public DcMotor  intakeMotor = null; //for intake
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
 
