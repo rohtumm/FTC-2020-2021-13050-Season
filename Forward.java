@@ -59,10 +59,11 @@ public class Forward extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     DcMotor leftDrive;
     DcMotor rightDrive;
-    DcMotor leftDownDrive;
-    DcMotor rightDownDrive;
+    //DcMotor leftDownDrive;
+    //DcMotor rightDownDrive;
     Servo launcherPush;
     double power = 0.5;
+
 
     @Override
     public void runOpMode() {
@@ -74,15 +75,18 @@ public class Forward extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
-        rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
+        //leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
+        //rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
+        launcherPush  = hardwareMap.get(Servo.class, "launcher_push");
+
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         //change when motors come
-        leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
+        //leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
+        //rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
+        launcherPush.setDirection(Servo.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         // Sample Code
@@ -90,17 +94,20 @@ public class Forward extends LinearOpMode {
         runtime.reset();
         leftDrive.setPower(power);
         rightDrive.setPower(power);
-        leftDownDrive.setPower(power);
-        rightDownDrive.setPower(power);
+        //leftDownDrive.setPower(power);
+        //rightDownDrive.setPower(power);
+        launcherPush.setPosition(0.5);
+
         sleep(2000);
 
         power = 0.0;
-
+        
         leftDrive.setPower(power);
         rightDrive.setPower(power);
-        leftDownDrive.setPower(power);
-        rightDownDrive.setPower(power);
+        //leftDownDrive.setPower(power);
+        //rightDownDrive.setPower(power);
         //End Of Sample Code
+        launcherPush.setPosition(0.5);
 
         // run until the end of the match (driver presses STOP)
 //        while (opModeIsActive()) {
