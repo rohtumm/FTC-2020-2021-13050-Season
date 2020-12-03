@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Forward", group="Linear Opmode")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Forward", group="Linear Opmode")
 //@Disabled
 public class Forward extends LinearOpMode {
 
@@ -59,11 +59,11 @@ public class Forward extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     DcMotor leftDrive;
     DcMotor rightDrive;
-    DcMotor launcherMotor;
-    //DcMotor leftDownDrive;
-    //DcMotor rightDownDrive;
+    DcMotor leftDownDrive;
+    DcMotor rightDownDrive;
     Servo launcherPush;
-    double power = 0.5;
+    double power = 1;
+    char targetZone = 'A';
 
 
     @Override
@@ -74,48 +74,71 @@ public class Forward extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
+        launcherPush = hardwareMap.get(Servo.class, "launcher_push");
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
         leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
         rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
-        launcherPush  = hardwareMap.get(Servo.class, "launcher_push");
-
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        change when motors come
         leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
-        launcherPush.setDirection(Servo.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
-        // Sample Code
+        // Sample Code (shows how to move the robot forward for 2 seconds
         waitForStart();
         runtime.reset();
-        leftDrive.setPower(power);
-        rightDrive.setPower(power);
+
+
+        //wobble target zones
+
+        leftDrive.setPower(-power); // they all start with going left thats why i have this out of the if statements
+        rightDrive.setPower(-power);
         leftDownDrive.setPower(power);
         rightDownDrive.setPower(power);
-        launcherPush.setPosition(0.5);
+        if (targetZone=='A'){
+            sleep(367);
+            leftDrive.setPower(power);
+            rightDrive.setPower(power);
+            sleep(841);
+        } else if (targetZone=='B'){
+            sleep(184);
+            leftDrive.setPower(power);
+            rightDrive.setPower(power);
+            sleep(1208);
+            leftDownDrive.setPower(-power);
+            rightDownDrive.setPower(-power);
+            sleep(184);
+        } else if (targetZone=='C'){
+            sleep(367);
+            leftDrive.setPower(power);
+            rightDrive.setPower(power);
+            sleep(1575);
+        }
+        leftDrive.setPower(0); //outside because they all stop at the end
+        rightDrive.setPower(0);
+        leftDownDrive.setPower(0);
+        rightDownDrive.setPower(0);
 
-        sleep(2000);
+        //end of wobble target zone moving
 
-        power = 0.0;
 
-        leftDrive.setPower(power);
-        rightDrive.setPower(power);
-        leftDownDrive.setPower(power);
-        rightDownDrive.setPower(power);
+//        leftDrive.setPower(power);
+//        rightDrive.setPower(power);
+//        leftDownDrive.setPower(power);
+//        rightDownDrive.setPower(power);
+//        sleep(2000);
+//
+//        power = 0.0;
+//
+//        leftDrive.setPower(power);
+//        rightDrive.setPower(power);
+//        leftDownDrive.setPower(power);
+//        rightDownDrive.setPower(power);
         //End Of Sample Code
-        //launcherPush.setPosition(0.5);
-        launcherMotor.setPower(0.85);
-        sleep(1000);
-        launcherPush.setPosition(0.5);
-        sleep(2500);
-        launcherMotor.setPower(0);
-        launcherPush.setPosition(0.0);
+
         // run until the end of the match (driver presses STOP)
 //        while (opModeIsActive()) {
 //
