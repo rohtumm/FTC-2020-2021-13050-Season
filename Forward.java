@@ -94,28 +94,27 @@ public class Forward extends LinearOpMode {
 
         //wobble target zones
 
-        leftDrive.setPower(-power); // they all start with going left thats why i have this out of the if statements
+        leftDrive.setPower(-power); // A and C start with going left thats why i have this out of the if statements
         rightDrive.setPower(-power);
         leftDownDrive.setPower(power);
         rightDownDrive.setPower(power);
         if (targetZone=='A'){
-            sleep(367);
-            leftDrive.setPower(power);
+            sleep(184);//move left for 367 milliseconds
+            leftDrive.setPower(power); //changes the power to make it move forward
             rightDrive.setPower(power);
-            sleep(841);
+            sleep(841); //moves forward for 841 milliseconds
         } else if (targetZone=='B'){
-            sleep(184);
-            leftDrive.setPower(power);
+            leftDrive.setPower(power); //changes the power to make it move forward
             rightDrive.setPower(power);
-            sleep(1208);
-            leftDownDrive.setPower(-power);
+            sleep(1208); //moves forward for 1208 milliseconds
+            leftDownDrive.setPower(-power); // changes power to make it move right
             rightDownDrive.setPower(-power);
-            sleep(184);
+            sleep(184); //moves right for 184 (the moving left and right is to avoid the rings in the center)
         } else if (targetZone=='C'){
-            sleep(367);
-            leftDrive.setPower(power);
+            sleep(184); // moves left for 367 milliseconds
+            leftDrive.setPower(power); //changes power to move forward
             rightDrive.setPower(power);
-            sleep(1575);
+            sleep(1575); //moves forward for 1575 milliseconds
         }
         leftDrive.setPower(0); //outside because they all stop at the end
         rightDrive.setPower(0);
