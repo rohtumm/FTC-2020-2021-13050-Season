@@ -120,8 +120,42 @@ public class Forward extends LinearOpMode {
         rightDrive.setPower(0);
         leftDownDrive.setPower(0);
         rightDownDrive.setPower(0);
+        //place wobble add code later
 
         //end of wobble target zone moving
+
+        //go to shooting location for autonomous goal scoring
+
+        if (targetZone=='A'){
+            leftDrive.setPower(power); //sets power to go forward
+            rightDrive.setPower(power);
+            leftDownDrive.setPower(power);
+            rightDownDrive.setPower(power);
+            sleep(73); //moves forward for 73 milliseconds
+            leftDownDrive.setPower(-power); //sets power to go right
+            rightDownDrive.setPower(-power);
+            sleep(367); //moves right for 367 milliseconds
+        } else if (targetZone=='B') {
+            leftDrive.setPower(-power); //sets power to go backwards
+            rightDrive.setPower(-power);
+            leftDownDrive.setPower(-power);
+            rightDownDrive.setPower(-power);
+            sleep(294); //moves backwards for 294 milliseconds
+        } else if (targetZone=='C'){
+            leftDrive.setPower(-power); //sets power to go backwards
+            rightDrive.setPower(-power);
+            leftDownDrive.setPower(-power);
+            rightDownDrive.setPower(-power);
+            sleep(661); //moves backwards for 661 milliseconds
+            leftDrive.setPower(power); //sets power to go right
+            rightDrive.setPower(power);
+            sleep(367); //moves right for 367 milliseconds
+        }
+        leftDrive.setPower(0); //stops robot
+        rightDrive.setPower(0);
+        leftDownDrive.setPower(0);
+        rightDownDrive.setPower(0);
+        //start launcher firing next
 
 
 //        leftDrive.setPower(power);
