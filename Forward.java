@@ -61,8 +61,11 @@ public class Forward extends LinearOpMode {
     DcMotor rightDrive;
     DcMotor leftDownDrive;
     DcMotor rightDownDrive;
+    DcMotor launcherMotor;
     Servo launcherPush;
     double power = 1;
+    double launcherPower = 0.85;
+
     char targetZone = 'A';
 
 
@@ -75,12 +78,14 @@ public class Forward extends LinearOpMode {
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         launcherPush = hardwareMap.get(Servo.class, "launcher_push");
+        launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
         rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
+        launcherMotor.setDirection(DcMotor.Direction.FORWARD);
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -156,8 +161,21 @@ public class Forward extends LinearOpMode {
         leftDownDrive.setPower(0);
         rightDownDrive.setPower(0);
         //start launcher firing next
-
-
+        launcherMotor.setPower(launcherPower); //change launcher power up above for testing
+        sleep(1000); //gives time for the motor to get started
+        launcherPush.setPosition(0.5); //change in case the amount of motion this servo is allowed is changed
+        launcherPush.setPosition(0);
+        sleep(500); //gives time for the disk to get accelerated and fired out of the launcher
+        sleep(1000); //gives time for the motor to get started
+        launcherPush.setPosition(0.5); //change in case the amount of motion this servo is allowed is changed
+        launcherPush.setPosition(0);
+        sleep(500); //gives time for the disk to get accelerated and fired out of the launcher
+        sleep(1000); //gives time for the motor to get started
+        launcherPush.setPosition(0.5); //change in case the amount of motion this servo is allowed is changed
+        launcherPush.setPosition(0);
+        sleep(500); //gives time for the disk to get accelerated and fired out of the launcher
+        launcherMotor.setPower(0); //stops launcher motor
+        //this fires it 3 times, there may be extra things to do in between firing and reloading depending on the design but this is the basic firing mechanism
         //after launcher fires all 3 rings
         leftDrive.setPower(power);
         rightDrive.setPower(power);
