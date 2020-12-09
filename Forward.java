@@ -158,6 +158,19 @@ public class Forward extends LinearOpMode {
         //start launcher firing next
 
 
+        //after launcher fires all 3 rings
+        leftDrive.setPower(power);
+        rightDrive.setPower(power);
+        leftDownDrive.setPower(power);
+        rightDownDrive.setPower(power);
+        sleep(183);
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
+        leftDownDrive.setPower(0);
+        rightDownDrive.setPower(0);
+        //end of autonomous
+
+
 //        leftDrive.setPower(power);
 //        rightDrive.setPower(power);
 //        leftDownDrive.setPower(power);
