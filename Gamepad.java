@@ -57,12 +57,13 @@ public class Gamepad extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     DcMotor leftDrive;
-//    DcMotor rightDrive;
-//    DcMotor leftDownDrive;
-//    DcMotor rightDownDrive;
+    DcMotor rightDrive;
+    DcMotor leftDownDrive;
+    DcMotor rightDownDrive;
     DcMotor launcherMotor;
     DcMotor intakeMotor;
     Servo launcherPush;
+    double power = 1;
 
     @Override
     public void runOpMode() {
@@ -73,9 +74,9 @@ public class Gamepad extends LinearOpMode {
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-//        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-//        leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
-//        rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
+        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
+        rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
         launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
         intakeMotor = hardwareMap.get(DcMotor.class, "intake_motor");
         launcherPush = hardwareMap.get(Servo.class,"launcher_push");
@@ -83,9 +84,9 @@ public class Gamepad extends LinearOpMode {
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
-//        rightDrive.setDirection(DcMotor.Direction.REVERSE);
-//        leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
-//        rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
         launcherMotor.setDirection(DcMotor.Direction.FORWARD); //change when making launcher
         intakeMotor.setDirection(DcMotor.Direction.FORWARD); //change when making intake
 
@@ -98,10 +99,8 @@ public class Gamepad extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Setup a variable for each drive wheel to save power level for telemetry
-            double leftPower;
             double launcherPower;
             double intakePower;
-            //double rightPower;
 
             launcherPower = 0.85; //different speeds later
             intakePower = .5; //change later
@@ -122,6 +121,43 @@ public class Gamepad extends LinearOpMode {
                 intakeMotor.setPower(0);
             }
 
+            if(gamepad1.left_stick_x>0.75){
+                leftDrive.setPower(power);
+                rightDrive.setPower(-power);
+                leftDownDrive.setPower(power);
+                rightDownDrive.setPower(-power);
+            } else if (gamepad1.left_stick_x<-0.75){
+                leftDrive.setPower(-power);
+                rightDrive.setPower(power);
+                leftDownDrive.setPower(-power);
+                rightDownDrive.setPower(power);
+            } else if (gamepad1.right_stick_y>0.75){
+                leftDrive.setPower(power);
+                rightDrive.setPower(power);
+                leftDownDrive.setPower(power);
+                rightDownDrive.setPower(power);
+            } else if (gamepad1.right_stick_y<-0.75){
+                leftDrive.setPower(-power);
+                rightDrive.setPower(-power);
+                leftDownDrive.setPower(-power);
+                rightDownDrive.setPower(-power);
+            } else if (gamepad1.right_stick_x>0.75){
+                leftDrive.setPower(power);
+                rightDrive.setPower(-power);
+                leftDownDrive.setPower(-power);
+                rightDownDrive.setPower(power);
+            } else if (gamepad1.right_stick_x<-0.75){
+                leftDrive.setPower(-power);
+                rightDrive.setPower(power);
+                leftDownDrive.setPower(power);
+                rightDownDrive.setPower(-power);
+            } else {
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
+                leftDownDrive.setPower(0);
+                rightDownDrive.setPower(0);
+            }
+
 
 
 
@@ -140,16 +176,9 @@ public class Gamepad extends LinearOpMode {
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
 
-            //shows how to use gamepad to move motors
-            //sample code
-            leftPower  = -gamepad1.left_stick_y ;
-//            rightPower = -gamepad1.right_stick_y ;
+
 
             // Send calculated power to wheels
-            leftDrive.setPower(leftPower);
-//            rightDrive.setPower(rightPower);
-//            leftDownDrive.setPower(leftPower);
-//            rightDownDrive.setPower(rightPower);
             //STARTER CODE COMMENTED OUT BY US
             //shows how to press button and make it move forward
 //            if (gamepad1.a) {
@@ -166,7 +195,7 @@ public class Gamepad extends LinearOpMode {
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", intakePower, launcherPower, leftPower/*, rightPower*/);
+            telemetry.addData("Motors", "left (%.2f), right (%.2f)", intakePower, launcherPower, power);
             telemetry.update();
         }
     }
