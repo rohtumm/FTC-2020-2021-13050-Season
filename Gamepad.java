@@ -62,6 +62,7 @@ public class Gamepad extends LinearOpMode {
     DcMotor rightDownDrive;
     DcMotor launcherMotor;
     DcMotor intakeMotor;
+    DcMotor wobbleMotor;
     Servo launcherPush;
     double power = 1;
 
@@ -79,6 +80,7 @@ public class Gamepad extends LinearOpMode {
         rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
         launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
         intakeMotor = hardwareMap.get(DcMotor.class, "intake_motor");
+        wobbleMotor = hardwareMap.get(DcMotor.class, "wobble_motor");
         launcherPush = hardwareMap.get(Servo.class,"launcher_push");
 
         // Most robots need the motor on one side to be reversed to drive forward
@@ -89,6 +91,7 @@ public class Gamepad extends LinearOpMode {
         rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
         launcherMotor.setDirection(DcMotor.Direction.FORWARD); //change when making launcher
         intakeMotor.setDirection(DcMotor.Direction.FORWARD); //change when making intake
+        wobbleMotor.setDirection(DcMotor.Direction.FORWARD);
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -157,6 +160,15 @@ public class Gamepad extends LinearOpMode {
                 leftDownDrive.setPower(0);
                 rightDownDrive.setPower(0);
             }
+            if(gamepad1.y){
+                wobbleMotor.setTargetPosition((int) 0.5);
+                wobbleMotor.setPower(0.09);
+            } else if (gamepad1.a){
+                wobbleMotor.setTargetPosition((int) 0);
+                wobbleMotor.setPower(0.09);
+            }
+
+
 
 
 
