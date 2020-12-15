@@ -63,6 +63,8 @@ public class HardwarePushbot2
     public DcMotor  launcherMotor     = null;
     public Servo    launcherPush    = null;
     public OpenCvCamera webcamName = null;
+    public DcMotor intakeMotor = null;
+    public DcMotor wobbleMotor = null;
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
@@ -89,11 +91,15 @@ public class HardwarePushbot2
         leftDownDrive = hwMap.get(DcMotor.class, "left_down_drive"); // Added by us
         launcherMotor    = hwMap.get(DcMotor.class, "launcherMotor");
         webcamName = hwMap.get(OpenCvCamera.class, "Webcam 1");
+        intakeMotor = hwMap.get(DcMotor.class, "intake_motor");
+        wobbleMotor = hwMap.get(DcMotor.class, "wobble_motor");
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         leftDownDrive.setDirection(DcMotor.Direction.FORWARD); // Added by us Set to REVERSE if using AndyMark motors
         rightDownDrive.setDirection(DcMotor.Direction.REVERSE);// Added by us Set to FORWARD if using AndyMark motors
         launcherMotor.setDirection(DcMotor.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
+        wobbleMotor.setDirection(DcMotor.Direction.FORWARD);
 
 
         // Set all motors to zero power
@@ -102,14 +108,18 @@ public class HardwarePushbot2
         launcherMotor.setPower(0);
         leftDownDrive.setPower(0); // Added by us
         rightDownDrive.setPower(0); // Added by us
+        intakeMotor.setPower(0);
+        wobbleMotor.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftDownDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Added by us
-        rightDownDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Added by us
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftDownDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Added by us
+        rightDownDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Added by us
         launcherMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        wobbleMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Define and initialize ALL installed servos.
         launcherPush  = hwMap.get(Servo.class, "launcher_push");
