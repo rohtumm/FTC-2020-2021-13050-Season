@@ -34,6 +34,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCamera;
+
 /**
  * This is NOT an opmode.
  *
@@ -46,10 +49,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  * Motor channel:  Left  drive motor:        "left_drive"
  * Motor channel:  Right drive motor:        "right_drive"
- * Motor channel: Left Down Drive Motor: "left_down_drive"
- * Motor channel: Right Down Drive Motor: "right_down_drive"
- * Motor channel:  Launcher Motor  "launcher_motor"
- * Motor channel:  Intake Motor "intake_motor"
+ * Motor channel:  Manipulator drive motor:  "left_arm"
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
@@ -58,14 +58,11 @@ public class HardwarePushbot2
     /* Public OpMode members. */
     public DcMotor  leftDrive   = null;
     public DcMotor  rightDrive  = null;
-    //new motors
-    public DcMotor  rightDownDrive = null;
-    public DcMotor  leftDownDrive = null;
-    //end of new motors (we created)
-    public DcMotor  launcherMotor = null; //for launcher
-    public DcMotor  intakeMotor = null; //for intake
-    public Servo    leftClaw    = null;
-    public Servo    rightClaw   = null;
+    public DcMotor  rightDownDrive  = null; // Added by us
+    public DcMotor  leftDownDrive   = null; // Added by us
+    public DcMotor  launcherMotor     = null;
+    public Servo    launcherPush    = null;
+    public OpenCvCamera webcamName = null;
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
@@ -88,47 +85,35 @@ public class HardwarePushbot2
         // Define and Initialize Motors
         leftDrive  = hwMap.get(DcMotor.class, "left_drive");
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
-        // giving name to new motors
-        leftDownDrive = hwMap.get(DcMotor.class, "left_down_drive");
-        rightDownDrive = hwMap.get(DcMotor.class, "right_down_drive");
-
-
-        launcherMotor    = hwMap.get(DcMotor.class, "launcher_motor");
-        intakeMotor = hwMap.get(DcMotor.class, "intake_motor");
+        rightDownDrive = hwMap.get(DcMotor.class, "right_down_drive"); // Added by us
+        leftDownDrive = hwMap.get(DcMotor.class, "left_down_drive"); // Added by us
+        launcherMotor    = hwMap.get(DcMotor.class, "launcherMotor");
+        webcamName = hwMap.get(OpenCvCamera.class, "Webcam 1");
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        //new motors pt. 2
-        leftDownDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightDownDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        launcherMotor.setDirection(DcMotor.Direction.FORWARD);// change when we make launcher
-        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
-        //end of new motors pt. 2 (we created)
+        leftDownDrive.setDirection(DcMotor.Direction.FORWARD); // Added by us Set to REVERSE if using AndyMark motors
+        rightDownDrive.setDirection(DcMotor.Direction.REVERSE);// Added by us Set to FORWARD if using AndyMark motors
+        launcherMotor.setDirection(DcMotor.Direction.FORWARD);
+
+
         // Set all motors to zero power
         leftDrive.setPower(0);
         rightDrive.setPower(0);
-        //new motors pt. 3
-        leftDownDrive.setPower(0);
-        rightDownDrive.setPower(0);
-        //end of new motors pt. 3 (we created)
         launcherMotor.setPower(0);
-        intakeMotor.setPower(0);
+        leftDownDrive.setPower(0); // Added by us
+        rightDownDrive.setPower(0); // Added by us
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //new motors pt. 4
-        leftDownDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDownDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //end of new motors pt. 4 (we created)
+        leftDownDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Added by us
+        rightDownDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Added by us
         launcherMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
-        leftClaw  = hwMap.get(Servo.class, "left_hand");
-        rightClaw = hwMap.get(Servo.class, "right_hand");
-        leftClaw.setPosition(MID_SERVO);
-        rightClaw.setPosition(MID_SERVO);
+        launcherPush  = hwMap.get(Servo.class, "launcher_push");
+        launcherPush.setPosition(MID_SERVO);
     }
  }
 
