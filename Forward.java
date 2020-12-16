@@ -164,14 +164,17 @@ public class Forward extends LinearOpMode {
         launcherMotor.setPower(launcherPower); //change launcher power up above for testing
         sleep(1000); //gives time for the motor to get started
         launcherPush.setPosition(0.5); //change in case the amount of motion this servo is allowed is changed
+        sleep(800);
         launcherPush.setPosition(0);
         sleep(500); //gives time for the disk to get accelerated and fired out of the launcher
         sleep(1000); //gives time for the motor to get started
         launcherPush.setPosition(0.5); //change in case the amount of motion this servo is allowed is changed
+        sleep(800);
         launcherPush.setPosition(0);
         sleep(500); //gives time for the disk to get accelerated and fired out of the launcher
         sleep(1000); //gives time for the motor to get started
         launcherPush.setPosition(0.5); //change in case the amount of motion this servo is allowed is changed
+        sleep(800);
         launcherPush.setPosition(0);
         sleep(500); //gives time for the disk to get accelerated and fired out of the launcher
         launcherMotor.setPower(0); //stops launcher motor
