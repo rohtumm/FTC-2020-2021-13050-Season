@@ -165,7 +165,7 @@ public class Gamepad extends LinearOpMode {
                 wobbleMotor.setPower(0.09);
             } else if (gamepad1.a){
                 wobbleMotor.setTargetPosition((int) 0);
-                wobbleMotor.setPower(0.09);
+                wobbleMotor.setPower(-0.09);
             }
 
 
