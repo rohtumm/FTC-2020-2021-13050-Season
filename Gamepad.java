@@ -64,6 +64,7 @@ public class Gamepad extends LinearOpMode {
     DcMotor intakeMotor;
     DcMotor wobbleMotor;
     Servo launcherPush;
+    DcMotor wobbleArm;
     double power = 1;
 
     @Override
@@ -75,6 +76,7 @@ public class Gamepad extends LinearOpMode {
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
+        wobbleArm = hardwareMap.get(DcMotor.class, "wobble_Arm");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
         rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
@@ -105,6 +107,7 @@ public class Gamepad extends LinearOpMode {
             double launcherPower;
             double intakePower;
 
+
             launcherPower = 0.85; //different speeds later
             intakePower = .5; //change later
             //launcher
@@ -113,6 +116,13 @@ public class Gamepad extends LinearOpMode {
             } else {
                 launcherMotor.setPower(0);
             }
+
+            if(gamepad1.y == true){
+                wobbleArm.setPower(0.09);
+                sleep(2000);
+                wobbleArm.setPower(0);
+            }
+
             //intake
             if(gamepad1.right_bumper){
                 launcherPush.setPosition(0.5);
@@ -165,7 +175,7 @@ public class Gamepad extends LinearOpMode {
                 wobbleMotor.setPower(0.09);
             } else if (gamepad1.a){
                 wobbleMotor.setTargetPosition((int) 0);
-                wobbleMotor.setPower(-0.09);
+                wobbleMotor.setPower(0.09);
             }
 
 
