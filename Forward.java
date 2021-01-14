@@ -63,6 +63,7 @@ public class Forward extends LinearOpMode {
     DcMotor rightDownDrive;
     DcMotor launcherMotor;
     Servo launcherPush;
+    DcMotor wobbleArm;
     double power = 1;
     double launcherPower = 0.85;
 
@@ -79,6 +80,7 @@ public class Forward extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         launcherPush = hardwareMap.get(Servo.class, "launcher_push");
         launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
+        wobbleArm = hardwareMap.get(DcMotor.class, "wobble_Arm");
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
@@ -87,6 +89,7 @@ public class Forward extends LinearOpMode {
         // Reverse the motor that runs backwards when connected directly to the battery
         launcherMotor.setDirection(DcMotor.Direction.FORWARD);
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
+        wobbleArm.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -126,6 +129,15 @@ public class Forward extends LinearOpMode {
         leftDownDrive.setPower(0);
         rightDownDrive.setPower(0);
         //place wobble add code later
+
+        wobbleArm.setPower(0.09);
+        //turn 180 degrees arm
+        sleep(2000);
+        wobbleArm.setPower(0);
+        // move robot
+        // move arm 90 degrees
+        wobbleArm.setPower(0.09);
+        sleep(1000);
 
         //end of wobble target zone moving
 
