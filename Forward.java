@@ -131,12 +131,20 @@ public class Forward extends LinearOpMode {
         //place wobble add code later
 
         wobbleArm.setPower(0.09);
-        //turn 180 degrees arm
-        sleep(2000);
+
+        // Controls how long the motor will turn for.
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e){}
+
         wobbleArm.setPower(0);
-        // move robot
-        // move arm 90 degrees
-        wobbleArm.setPower(0.09);
+
+        // Controls how long the code will pause for.
+        try {
+            Thread.sleep(10000);
+        } catch (Exception e){}
+
+        wobbleArm.setPower(-0.09);
         sleep(1000);
 
         //end of wobble target zone moving
