@@ -62,6 +62,7 @@ public class Forward extends LinearOpMode {
     DcMotor leftDownDrive;
     DcMotor rightDownDrive;
     DcMotor launcherMotor;
+    DcMotor launcherMotor2;
     Servo launcherPush;
     DcMotor wobbleArm;
     double power = 1;
@@ -80,6 +81,7 @@ public class Forward extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         launcherPush = hardwareMap.get(Servo.class, "launcher_push");
         launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
+        launcherMotor2 = hardwareMap.get(DcMotor.class, "launcher_motor_2");
         wobbleArm = hardwareMap.get(DcMotor.class, "wobble_Arm");
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
@@ -88,6 +90,7 @@ public class Forward extends LinearOpMode {
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         launcherMotor.setDirection(DcMotor.Direction.FORWARD);
+        launcherMotor2.setDirection(DcMotor.Direction.FORWARD);
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         wobbleArm.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -181,7 +184,8 @@ public class Forward extends LinearOpMode {
         leftDownDrive.setPower(0);
         rightDownDrive.setPower(0);
         //start launcher firing next
-        launcherMotor.setPower(launcherPower); //change launcher power up above for testing
+        launcherMotor.setPower(-launcherPower); //change launcher power up above for testing
+        launcherMotor2.setPower(launcherPower);
         sleep(1000); //gives time for the motor to get started
         launcherPush.setPosition(0.5); //change in case the amount of motion this servo is allowed is changed
         sleep(800);
@@ -198,6 +202,7 @@ public class Forward extends LinearOpMode {
         launcherPush.setPosition(0);
         sleep(500); //gives time for the disk to get accelerated and fired out of the launcher
         launcherMotor.setPower(0); //stops launcher motor
+        launcherMotor2.setPower(0);
         //this fires it 3 times, there may be extra things to do in between firing and reloading depending on the design but this is the basic firing mechanism
         //after launcher fires all 3 rings
         leftDrive.setPower(power);
