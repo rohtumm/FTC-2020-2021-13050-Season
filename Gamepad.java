@@ -63,7 +63,7 @@ public class Gamepad extends LinearOpMode {
     DcMotor launcherMotor;
     DcMotor launcherMotor2;
     DcMotor intakeMotor;
-    DcMotor wobbleMotor;
+    Servo wobbleServo;
     Servo launcherPush;
     double power = 1;
 
@@ -82,7 +82,7 @@ public class Gamepad extends LinearOpMode {
         launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
         launcherMotor2 = hardwareMap.get(DcMotor.class, "launcher_motor_2");
         intakeMotor = hardwareMap.get(DcMotor.class, "intake_motor");
-        wobbleMotor = hardwareMap.get(DcMotor.class, "wobble_motor");
+        wobbleServo = hardwareMap.get(Servo.class, "wobble_motor");
         launcherPush = hardwareMap.get(Servo.class,"launcher_push");
 
         // Most robots need the motor on one side to be reversed to drive forward
@@ -94,7 +94,7 @@ public class Gamepad extends LinearOpMode {
         launcherMotor.setDirection(DcMotor.Direction.FORWARD); //change when making launcher
         launcherMotor2.setDirection(DcMotor.Direction.FORWARD);
         intakeMotor.setDirection(DcMotor.Direction.FORWARD); //change when making intake
-        wobbleMotor.setDirection(DcMotor.Direction.FORWARD);
+        wobbleServo.setDirection(Servo.Direction.FORWARD);
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -168,13 +168,13 @@ public class Gamepad extends LinearOpMode {
 
             //wobble arm
             if(gamepad1.y){
-                wobbleMotor.setTargetPosition((int) 0.5);
-                wobbleMotor.setPower(0.09);
+                wobbleServo.setTargetPosition((int) 0.5);
+                wobbleServo.setPower(0.09);
             } else if (gamepad1.a){
-                wobbleMotor.setTargetPosition((int) 0);
-                wobbleMotor.setPower(-0.09);
+                wobbleServo.setTargetPosition((int) 0);
+                wobbleServo.setPower(-0.09);
             }
-
+// It says that there's an error for .setTargetPosition and .setPower when I changed it to wobbleServo.
 
 
 
