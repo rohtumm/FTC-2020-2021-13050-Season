@@ -61,10 +61,10 @@ public class Gamepad extends LinearOpMode {
     DcMotor leftDownDrive;
     DcMotor rightDownDrive;
     DcMotor launcherMotor;
+    DcMotor launcherMotor2;
     DcMotor intakeMotor;
     DcMotor wobbleMotor;
     Servo launcherPush;
-    DcMotor wobbleArm;
     double power = 1;
 
     @Override
@@ -76,11 +76,11 @@ public class Gamepad extends LinearOpMode {
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        wobbleArm = hardwareMap.get(DcMotor.class, "wobble_Arm");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
         rightDownDrive = hardwareMap.get(DcMotor.class, "right_down_drive");
         launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
+        launcherMotor2 = hardwareMap.get(DcMotor.class, "launcher_motor_2");
         intakeMotor = hardwareMap.get(DcMotor.class, "intake_motor");
         wobbleMotor = hardwareMap.get(DcMotor.class, "wobble_motor");
         launcherPush = hardwareMap.get(Servo.class,"launcher_push");
@@ -92,6 +92,7 @@ public class Gamepad extends LinearOpMode {
         leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
         launcherMotor.setDirection(DcMotor.Direction.FORWARD); //change when making launcher
+        launcherMotor2.setDirection(DcMotor.Direction.FORWARD);
         intakeMotor.setDirection(DcMotor.Direction.FORWARD); //change when making intake
         wobbleMotor.setDirection(DcMotor.Direction.FORWARD);
 
@@ -107,25 +108,19 @@ public class Gamepad extends LinearOpMode {
             double launcherPower;
             double intakePower;
 
-
             launcherPower = 0.85; //different speeds later
             intakePower = .5; //change later
             //launcher
             if(gamepad1.right_trigger > 0.5){
-                launcherMotor.setPower(launcherPower);
+                launcherMotor.setPower(-launcherPower);
+                launcherMotor2.setPower(launcherPower);
             } else {
                 launcherMotor.setPower(0);
+                launcherMotor2.setPower(0);
             }
-
-            if(gamepad1.y == true){
-                wobbleArm.setPower(0.09);
-                sleep(2000);
-                wobbleArm.setPower(0);
-            }
-
             //intake
             if(gamepad1.right_bumper){
-                launcherPush.setPosition(0.5);
+                launcherPush.setPosition(1.5);
                 launcherPush.setPosition(0);
             }
             if(gamepad1.left_trigger > 0.5){
@@ -170,12 +165,14 @@ public class Gamepad extends LinearOpMode {
                 leftDownDrive.setPower(0);
                 rightDownDrive.setPower(0);
             }
+
+            //wobble arm
             if(gamepad1.y){
                 wobbleMotor.setTargetPosition((int) 0.5);
                 wobbleMotor.setPower(0.09);
             } else if (gamepad1.a){
                 wobbleMotor.setTargetPosition((int) 0);
-                wobbleMotor.setPower(0.09);
+                wobbleMotor.setPower(-0.09);
             }
 
 
