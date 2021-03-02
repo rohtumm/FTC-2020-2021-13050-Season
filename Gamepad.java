@@ -168,13 +168,13 @@ public class Gamepad extends LinearOpMode {
 
             //wobble arm
             if(gamepad1.y){
-                wobbleServo.setTargetPosition((int) 0.5);
-                wobbleServo.setPower(0.09);
+                wobbleServo.setPosition((int) 0.5);
+                wobbleServo.setPosition(0.09);
             } else if (gamepad1.a){
-                wobbleServo.setTargetPosition((int) 0);
-                wobbleServo.setPower(-0.09);
+                wobbleServo.setPosition((int) 0);
+                wobbleServo.setPosition(-0.09);
             }
-// It says that there's an error for .setTargetPosition and .setPower when I changed it to wobbleServo.
+
 
 
 
