@@ -64,7 +64,7 @@ public class Forward extends LinearOpMode {
     DcMotor launcherMotor;
     DcMotor launcherMotor2;
     Servo launcherPush;
-    DcMotor wobbleArm;
+    Servo wobbleArm;
     double power = 1;
     double launcherPower = 0.85;
 
@@ -82,7 +82,7 @@ public class Forward extends LinearOpMode {
         launcherPush = hardwareMap.get(Servo.class, "launcher_push");
         launcherMotor = hardwareMap.get(DcMotor.class, "launcher_motor");
         launcherMotor2 = hardwareMap.get(DcMotor.class, "launcher_motor_2");
-        wobbleArm = hardwareMap.get(DcMotor.class, "wobble_Arm");
+        wobbleArm = hardwareMap.get(Servo.class, "wobble_Arm");
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDownDrive  = hardwareMap.get(DcMotor.class, "left_down_drive");
@@ -92,7 +92,7 @@ public class Forward extends LinearOpMode {
         launcherMotor.setDirection(DcMotor.Direction.FORWARD);
         launcherMotor2.setDirection(DcMotor.Direction.FORWARD);
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        wobbleArm.setDirection(DcMotor.Direction.FORWARD);
+        wobbleArm.setDirection(Servo.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         leftDownDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDownDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -133,21 +133,21 @@ public class Forward extends LinearOpMode {
         rightDownDrive.setPower(0);
         //place wobble add code later
 
-        wobbleArm.setPower(0.09);
+        wobbleArm.setPosition(0.09);
 
         // Controls how long the motor will turn for.
         try {
             Thread.sleep(1000);
         } catch (Exception e){}
 
-        wobbleArm.setPower(0);
+        wobbleArm.setPosition(0);
 
         // Controls how long the code will pause for.
         try {
             Thread.sleep(10000);
         } catch (Exception e){}
 
-        wobbleArm.setPower(-0.09);
+        wobbleArm.setPosition(-0.09);
         sleep(1000);
 
         //end of wobble target zone moving
