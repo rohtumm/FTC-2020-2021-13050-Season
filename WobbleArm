@@ -47,7 +47,7 @@ public class WobbleArm extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
 
-    DcMotor wobbleArm;
+    Servo wobbleArm;
     double power = 1;
 
 
@@ -57,9 +57,9 @@ public class WobbleArm extends LinearOpMode {
         telemetry.update();
 
 
-        wobbleArm = hardwareMap.get(DcMotor.class, "wobble_Arm");
+        wobbleArm = hardwareMap.get(Servo.class, "wobble_Arm");
 
-        wobbleArm.setDirection(DcMotor.Direction.FORWARD);
+        wobbleArm.setDirection(Servo.Direction.FORWARD);
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -72,21 +72,21 @@ public class WobbleArm extends LinearOpMode {
 
 
 
-        wobbleArm.setPower(0.09);
+        wobbleArm.setPosition(0.09);
 
         // Controls how long the motor will turn for.
         try {
             Thread.sleep(1000);
         } catch (Exception e){}
 
-        wobbleArm.setPower(0);
+        wobbleArm.setPosition(0);
 
         // Controls how long the code will pause for.
         try {
             Thread.sleep(10000);
         } catch (Exception e){}
 
-        wobbleArm.setPower(-0.09);
+        wobbleArm.setPosition(-0.09);
         sleep(1000);
 
 
